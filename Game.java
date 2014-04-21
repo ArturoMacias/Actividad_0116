@@ -64,9 +64,13 @@ public class Game
         // execute them until the game is over.
                 
         boolean finished = false;
-        while (! finished ) {
+        boolean contains = false;
+        //VER QUE CON STRING TRABAJAMOS SIEMPRE CON EQUALS!!!! 
+        // ASI CUANDO LLEGUE A LA ASECCIÓN DE VIDEO, SE ACABA LA PARTIDA
+        while (! finished && ! contains) {
             Command command = parser.getCommand();
             finished = processCommand(command);
+            contains = currentRoom.getDescription().equals("in the video section");
         }
         System.out.println("Thank you for playing.  Good bye.");
     }
