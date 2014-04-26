@@ -44,11 +44,18 @@ public class Game
         video = new Room("in the video section");
 
         // initialise room exits
-        outside.setExits(null, null,null,corridor, null,null);
-        corridor.setExits(outside, null, null,mobile, kitchen,null);
-        kitchen.setExits(null, corridor, mobile, video,null,null);
-        mobile.setExits(corridor, null, null,null, video, kitchen);
-        video.setExits(kitchen, mobile, null,null, null,null);
+        outside.setExit("south",corridor);
+        corridor.setExit("north",outside);
+        corridor.setExit("south",mobile);
+        corridor.setExit("west",kitchen);
+        kitchen.setExit("east", corridor);
+        kitchen.setExit("southeast",mobile);
+        kitchen.setExit("south",video);
+        mobile.setExit("north",corridor);
+        mobile.setExit("west", video);
+        mobile.setExit("northwest",kitchen);
+        video.setExit("north",kitchen);
+        video.setExit("east", mobile);
 
         currentRoom = outside;  // start game outside
     }
@@ -149,7 +156,7 @@ public class Game
 
         // Try to leave current room.
         Room nextRoom = currentRoom.getExit(direction);
-        
+
         if (nextRoom == null) {
             System.out.println("There is no door!");
         }
