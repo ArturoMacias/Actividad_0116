@@ -1,3 +1,4 @@
+import java.util.HashMap;
 /**
  * Class Room - a room in an adventure game.
  *
@@ -15,12 +16,7 @@
 public class Room 
 {
     private String description;
-    private Room northExit;
-    private Room southExit;
-    private Room eastExit;
-    private Room westExit;
-    private Room southeastExit;
-    private Room northwestExit;
+    private HashMap<String, Room> map;
 
     /**
      * Create a room described "description". Initially, it has
@@ -31,6 +27,7 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
+        map = new HashMap<>();
     }
 
     /**
@@ -46,17 +43,17 @@ public class Room
     public void setExits(Room north, Room east,Room southeast, Room south,Room west, Room northwest) 
     {
         if(north != null)
-            northExit = north;
+            map.put("north", north);
         if(east != null)
-            eastExit = east;
+            map.put("east", east);
         if(southeast != null)
-            southeastExit = southeast;  
+            map.put("southeast", southeast);
         if(south != null)
-            southExit = south;
+            map.put("south", south);
         if(west != null)
-            westExit = west;
+            map.put("west", west);
         if (northwest !=null)
-            northwestExit = northwest;
+            map.put("northwest", northwest);
     }
 
     /**
@@ -70,18 +67,8 @@ public class Room
     public Room getExit(String direction){
 
         Room nextExit;
-        if (direction.equals("north")){
-            nextExit= northExit;
-        }else if(direction.equals("east")){
-            nextExit= eastExit;
-        }else if (direction.equals("southeast")){
-            nextExit = southeastExit; 
-        }else if (direction.equals("south")){
-            nextExit=southExit; 
-        }else if (direction.equals("west")){
-            nextExit=westExit;
-        }else if (direction.equals("northwest")){
-            nextExit=northwestExit;
+        if (map.containsKey(direction)){
+            nextExit=map.get(direction);
         }
         else{
             nextExit= null; 
@@ -96,25 +83,7 @@ public class Room
      * @ return A description of the available exits.
      */
     public String getExitString(){
-        String exit = "Exits: ";
-        if (northExit != null){
-            exit += " north ";
-        }
-        if (eastExit != null){
-            exit += " east ";
-        }
-        if (southeastExit != null){
-            exit += " southeast ";
-        }
-        if (southExit != null){
-            exit += " south ";
-        }
-        if (westExit != null){
-            exit += " west ";
-        }
-        if (northwestExit !=null){
-            exit += " northwest";
-        }
+        String exit = "Exits: " + map.keySet();
         return exit;
     }
 }
