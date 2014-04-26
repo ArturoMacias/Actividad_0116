@@ -44,11 +44,11 @@ public class Game
         video = new Room("in the video section");
 
         // initialise room exits
-        outside.setExits(null, null,null,corridor, null);
-        corridor.setExits(outside, null, null,mobile, kitchen);
-        kitchen.setExits(null, corridor, mobile, video,null);
-        mobile.setExits(corridor, null, null,null, video);
-        video.setExits(kitchen, mobile, null,null, null);
+        outside.setExits(null, null,null,corridor, null,null);
+        corridor.setExits(outside, null, null,mobile, kitchen,null);
+        kitchen.setExits(null, corridor, mobile, video,null,null);
+        mobile.setExits(corridor, null, null,null, video, kitchen);
+        video.setExits(kitchen, mobile, null,null, null,null);
 
         currentRoom = outside;  // start game outside
     }
