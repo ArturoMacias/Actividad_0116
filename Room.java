@@ -82,4 +82,29 @@ public class Room
         return nextExit;
     }
 
+    /**
+     * Return a description of the room's exits.
+     * For example: "Exits: north east west"
+     *
+     * @ return A description of the available exits.
+     */
+    public String getExitString(){
+        String exit = "Exits: ";
+        if (northExit != null){
+            exit += " north ";
+        }
+        if (eastExit != null){
+            exit += " east ";
+        }
+        if (southeastExit != null){
+            exit += " southeast ";
+        }
+        if (southExit != null){
+            exit += " south ";
+        }
+        if (westExit != null){
+            exit += " west";
+        }
+        return exit;
+    }
 }
