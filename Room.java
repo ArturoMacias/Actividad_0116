@@ -30,7 +30,7 @@ public class Room
         map = new HashMap<>();
     }
 
-      /**
+    /**
      * Define an exit from this room.
      * @param direction The direction of the exit.
      * @param neighbor The room in the given direction.
@@ -68,5 +68,17 @@ public class Room
     public String getExitString(){
         String exit = "Exits: " + map.keySet();
         return exit;
+    }
+
+    /**
+     * Return a long description of this room, of the form:
+     *     You are in the 'name of room'
+     *     Exits: north west southwest
+     * @return A description of the room, including exits.
+     */
+    public String getLongDescription(){
+        
+        String longDescription = "You are in the " + getDescription() + "\n" + getExitString();
+        return longDescription;
     }
 }
