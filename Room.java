@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.ArrayList;
 /**
  * Class Room - a room in an adventure game.
  *
@@ -17,8 +18,7 @@ public class Room
 {
     private String description;
     private HashMap<String, Room> map;
-    private String itemName;
-    private int weight;
+    private ArrayList<Item> items;
 
     /**
      * Create a room described "description". Initially, it has
@@ -26,12 +26,19 @@ public class Room
      * "an open court yard".
      * @param description The room's description.
      */
-    public Room(String description, String itemName, int weight) 
+    public Room(String description) 
     {
         this.description = description;
         map = new HashMap<>();
-        this.itemName = itemName;
-        this.weight=weight;
+        items = new ArrayList<>();
+    }
+
+    /**
+     * @return The description of the room.
+     */
+    public String getDescription()
+    {
+        return description;
     }
 
     /**
@@ -43,24 +50,11 @@ public class Room
         map.put (direction, neighbor);
     }
 
-    /**
-     * @return The description of the room.
-     */
-    public String getDescription()
-    {
-        return description;
-    }
-    
-    public String getItemName(){
-        return itemName;
-    }
-    
-    public int getWeight(){
-        return weight;
+    public void addItem(String description, int weight){
+        items.add(new Item(description,weight));
     }
 
     public Room getExit(String direction){
-
         Room nextExit;
         if (map.containsKey(direction)){
             nextExit=map.get(direction);
@@ -69,6 +63,19 @@ public class Room
             nextExit= null; 
         }
         return nextExit;
+    }
+
+    public String getItemsInfo(){
+        String description = null;
+        if (items.size()>0){
+            description = "Available objects: ";
+            for (Item item: items){
+                description += "//Name: "+item.getItemName() + "; Weight: " + item.getWeight() + "//" + "\n"; 
+            }
+        }else{
+            description = "No items in this room";
+        }
+        return description;
     }
 
     /**
@@ -89,9 +96,9 @@ public class Room
      * @return A description of the room, including exits.
      */
     public String getLongDescription(){
-        
-        String longDescription = "You are in the " + getDescription() + "\n" + getExitString()+ "\n" + "Available objects: " 
-        + getItemName() + "\n"+ "Object's weight: " + getWeight();
+
+        String longDescription = "You are in the " + getDescription() + "\n" + getExitString()+ "\n" 
+            + getItemsInfo();
         return longDescription;
     }
 }
