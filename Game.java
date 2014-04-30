@@ -135,7 +135,7 @@ public class Game
      * Here we print some stupid, cryptic message and a list of the 
      * command words.
      * Opción (A)
-     */
+     
     private void printHelp() 
     {
         System.out.println("You are lost. You are alone. You wander");
@@ -143,6 +143,23 @@ public class Game
         System.out.println();
         System.out.println("Your command words are:");
         parser.getCommandWords().showAll();
+    }
+    */
+    
+   
+     /**
+     * Print out some help information.
+     * Here we print some stupid, cryptic message and a list of the 
+     * command words.
+     * Opción (B)
+     */
+    private void printHelp() 
+    {
+        System.out.println("You are lost. You are alone. You wander");
+        System.out.println("around at the university.");
+        System.out.println();
+        System.out.println("Your command words are:");
+        parser.printCommandWords();
     }
 
     /** 
