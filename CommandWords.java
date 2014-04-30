@@ -43,7 +43,7 @@ public class CommandWords
      * Print all valid commands to System.out
      */
     public void showAll(){
-        String commands = null;
+        String commands = "";
         for(int i = 0; i <validCommands.length; i++){
             commands += " " + validCommands[i];
         }
