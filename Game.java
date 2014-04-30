@@ -37,11 +37,11 @@ public class Game
         Room outside, corridor, kitchen, mobile, video;
 
         // create the rooms
-        outside = new Room("outside the main entrance of the mall center");
-        corridor = new Room("in the mall center acces area");
-        kitchen = new Room("in the kitchen section");
-        mobile = new Room("in the mobile section");
-        video = new Room("in the video section");
+        outside = new Room("outside the main entrance of the mall center","lamp", 20);
+        corridor = new Room("in the mall center acces area","carpet",2);
+        kitchen = new Room("in the kitchen section","chair", 3);
+        mobile = new Room("in the mobile section", "mobile", 1);
+        video = new Room("in the video section", "televisor", 15);
 
         // initialise room exits
         outside.setExit("south",corridor);
@@ -210,6 +210,5 @@ public class Game
 
     private void printLocationInfo(){
         System.out.println(currentRoom.getLongDescription());
-        System.out.println();
     }
 }
