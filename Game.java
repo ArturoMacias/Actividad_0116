@@ -134,6 +134,7 @@ public class Game
      * Print out some help information.
      * Here we print some stupid, cryptic message and a list of the 
      * command words.
+     * Opción (A)
      */
     private void printHelp() 
     {
