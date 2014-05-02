@@ -19,6 +19,7 @@ public class Game
 {
     private Parser parser;
     private Room currentRoom;
+    private Room previousRoom;
 
     /**
      * Create the game and initialise its internal map.
@@ -61,6 +62,7 @@ public class Game
         video.setExit("east", mobile);
 
         currentRoom = outside;  // start game outside
+
     }
 
     /**
@@ -123,12 +125,14 @@ public class Game
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
-        
+
         else if(commandWord.equals("look")){
             System.out.println(currentRoom.getLongDescription());
         }
         else if(commandWord.equals("eat")){
             System.out.println("You have eaten now and you are not hungry any more");
+        }else if(commandWord.equals("back")){
+            goBack();
         }
 
         return wantToQuit;
@@ -141,19 +145,18 @@ public class Game
      * Here we print some stupid, cryptic message and a list of the 
      * command words.
      * Opción (A)
-     
+
     private void printHelp() 
     {
-        System.out.println("You are lost. You are alone. You wander");
-        System.out.println("around at the university.");
-        System.out.println();
-        System.out.println("Your command words are:");
-        parser.getCommandWords().showAll();
+    System.out.println("You are lost. You are alone. You wander");
+    System.out.println("around at the university.");
+    System.out.println();
+    System.out.println("Your command words are:");
+    parser.getCommandWords().showAll();
     }
-    */
-    
-   
-     /**
+     */
+
+    /**
      * Print out some help information.
      * Here we print some stupid, cryptic message and a list of the 
      * command words.
@@ -189,10 +192,22 @@ public class Game
             System.out.println("There is no door!");
         }
         else {
+            previousRoom=currentRoom;//Almacena la anterior habitacion
             currentRoom = nextRoom;
             printLocationInfo();
             System.out.println();
         }
+    }
+
+    private void goBack(){
+        if (previousRoom == null){
+            System.out.println("You haven't moved yet, you can´t go back");
+        }
+        else{
+            currentRoom = previousRoom;
+        }
+        printLocationInfo();
+        System.out.println();
     }
 
     /** 
