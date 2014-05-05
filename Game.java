@@ -1,4 +1,4 @@
-import java.util.Stack;
+
 /**
  *  This class is the main class of the "World of Zuul" application. 
  *  "World of Zuul" is a very simple, text based adventure game.  Users 
@@ -19,24 +19,21 @@ import java.util.Stack;
 public class Game 
 {
     private Parser parser;
-    private Room currentRoom;
-    private Stack <Room> previousRooms;
+    private Player player;
     
-
     /**
      * Create the game and initialise its internal map.
      */
     public Game() 
     {
-        createRooms();
+        player = new Player (createRooms());
         parser = new Parser();
-        previousRooms = new Stack<>();
-    }
+     }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    private void createRooms()
+    private Room createRooms()
     {
         Room outside, corridor, kitchen, mobile, video;
 
@@ -64,7 +61,7 @@ public class Game
         video.setExit("north",kitchen);
         video.setExit("east", mobile);
 
-        currentRoom = outside;  // start game outside
+        return outside;  // start game outside
 
     }
 
@@ -79,13 +76,10 @@ public class Game
         // execute them until the game is over.
 
         boolean finished = false;
-        boolean contains = false;
-        //VER QUE CON STRING TRABAJAMOS SIEMPRE CON EQUALS!!!! 
-        // ASI CUANDO LLEGUE A LA ASECCIÓN DE VIDEO, SE ACABA LA PARTIDA
-        while (! finished && ! contains) {
+        
+        while (! finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
-            contains = currentRoom.getDescription().equals("in the video section");
         }
         System.out.println("Thank you for playing.  Good bye.");
     }
@@ -100,7 +94,7 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-        printLocationInfo();
+        player.printLocationInfo();
         System.out.println();
     }
 
@@ -123,19 +117,18 @@ public class Game
             printHelp();
         }
         else if (commandWord.equals("go")) {
-            goRoom(command);
+            player.goRoom(command);
         }
         else if (commandWord.equals("quit")) {
             wantToQuit = quit(command);
         }
-
         else if(commandWord.equals("look")){
-            System.out.println(currentRoom.getLongDescription());
+            player.printLocationInfo();
         }
         else if(commandWord.equals("eat")){
             System.out.println("You have eaten now and you are not hungry any more");
         }else if(commandWord.equals("back")){
-            goBack();
+            player.goBack();
         }
 
         return wantToQuit;
@@ -174,44 +167,6 @@ public class Game
         parser.printCommandWords();
     }
 
-    /** 
-     * Try to go in one direction. If there is an exit, enter
-     * the new room, otherwise print an error message.
-     */
-    private void goRoom(Command command) 
-    {
-        if(!command.hasSecondWord()) {
-            // if there is no second word, we don't know where to go...
-            System.out.println("Go where?");
-            return;
-        }
-
-        String direction = command.getSecondWord();
-
-        // Try to leave current room.
-        Room nextRoom = currentRoom.getExit(direction);
-
-        if (nextRoom == null) {
-            System.out.println("There is no door!");
-        }
-        else {
-            previousRooms.push(currentRoom);
-            currentRoom = nextRoom;
-            printLocationInfo();
-            System.out.println();
-        }
-    }
-
-    private void goBack(){
-        if (previousRooms.empty()){
-            System.out.println("You haven't moved yet, you can´t go back");
-        }
-        else{
-            currentRoom = previousRooms.pop();
-        }
-        printLocationInfo();
-        System.out.println();
-    }
 
     /** 
      * "Quit" was entered. Check the rest of the command to see
@@ -229,7 +184,5 @@ public class Game
         }
     }
 
-    private void printLocationInfo(){
-        System.out.println(currentRoom.getLongDescription());
-    }
-}
+       }
+
