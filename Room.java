@@ -50,8 +50,8 @@ public class Room
         map.put (direction, neighbor);
     }
 
-    public void addItem(String description, int weight){
-        items.add(new Item(description,weight));
+    public void addItem(String description, int weight, boolean taken){
+        items.add(new Item(description,weight,taken));
     }
 
     public Room getExit(String direction){

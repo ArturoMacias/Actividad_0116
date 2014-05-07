@@ -44,9 +44,11 @@ public class Game
         mobile = new Room("in the mobile section");
         video = new Room("in the video section");
         //add items 
-        outside.addItem("lamp", 2);
-        outside.addItem("chair",3);
-        mobile.addItem("mobile",1);
+        outside.addItem("lamp", 2, false);
+        outside.addItem("chair",3,true);
+        mobile.addItem("mobile",1,true);
+        mobile.addItem("table",5,false);
+        kitchen.addItem("spoon",1,true);
         // initialise room exits
         outside.setExit("south",corridor);
         corridor.setExit("north",outside);

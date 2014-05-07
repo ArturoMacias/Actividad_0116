@@ -11,6 +11,9 @@ public class Player
 
     private Room currentRoom;
     private Stack<Room> previousRooms;
+    private ArrayList<Item> playerItems;
+    //peso máximo que puede llevar el jugador
+    public static final int MAX_WEIGHT = 4;
 
     /**
      * Constructor for objects of class Player
@@ -19,6 +22,7 @@ public class Player
     {
         this.currentRoom = currentRoom;
         previousRooms = new Stack<>();
+        playerItems = new ArrayList<>();
     }
 
     /** 
