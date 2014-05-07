@@ -63,7 +63,10 @@ public class Player
         printLocationInfo();
         System.out.println();
     }
-
+    
+    /**
+     * Take a Item from the current room
+     */
     public void takeItem(Command command){
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know what to take...
@@ -94,6 +97,9 @@ public class Player
 
     }
 
+    /**
+     * Leave an item in the currentRoom
+     */
     public void dropItem(Command command){
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know what to drop...
@@ -118,6 +124,22 @@ public class Player
         if(found == false){
             System.out.println("Hey, you don´t have a great " + itemName+ " with you");
         }
+    }
+    /**
+     * Print player's list of items
+     */
+  
+    public void showItems(){
+        String listOfItems = "";
+        if(playerItems.size()>0){
+          listOfItems = "You have these items with you: ";
+            for(Item item:playerItems){
+            listOfItems += item.getItemName() +"// ";
+          }  
+        }else{
+            listOfItems = "You haven't got any items yet.";
+        }
+        System.out.println(listOfItems);
     }
 
     public void printLocationInfo(){

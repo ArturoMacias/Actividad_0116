@@ -135,6 +135,8 @@ public class Game
             player.takeItem(command);
         }else if (commandWord.equals("drop")){
             player.dropItem(command);
+        }else if(commandWord.equals("items")){
+            player.showItems();
         }
 
         return wantToQuit;
