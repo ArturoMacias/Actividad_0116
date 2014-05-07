@@ -79,6 +79,41 @@ public class Room
     }
 
     /**
+     * Devuelve un item si su nombre coincide con el que le pasamos por la descripción
+     */
+    public Item getItem(String description){
+        Item item = null;
+        int index=0;
+        boolean found= false;
+        while(index<items.size() && !found){
+            Item itemDesc = items.get(index);
+            if (itemDesc.getItemName().equals(description)){
+                item= itemDesc;
+                found = true;
+            }else{
+                index++;
+            }     
+        }
+        return item;
+    }
+
+    /**
+     * Elimina un item de la habitación
+     */
+    public void removeItem(Item itemToRemove){
+        int index=0;
+        boolean found = false;
+        while (index<items.size() && !found){
+            if (items.get(index)==itemToRemove){
+                items.remove(itemToRemove);
+                found = true;
+            }else{
+                index ++;
+            }
+        }
+    }
+
+    /**
      * Return a description of the room's exits.
      * For example: "Exits: north east west"
      *
