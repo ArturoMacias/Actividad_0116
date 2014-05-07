@@ -8,14 +8,17 @@ public class Item
 {
     private String itemName;
     private int weight;
+    //indica si el item puede ser llevado o no
+    private boolean taken;
 
     /**
      * Constructor for objects of class Item
      */
-    public Item(String itemName, int weight)
+    public Item(String itemName, int weight, boolean taken)
     {
         this.itemName = itemName;
         this.weight = weight;
+        this.taken = taken;
     }
 
     /**
@@ -31,4 +34,11 @@ public class Item
     public int getWeight(){
         return weight;
     }
-}
+    /**
+     * Returns 'true' if the item can be taken of 'false' if not
+     */
+    public boolean getTaken(){
+        return taken;
+    }
+}   
+

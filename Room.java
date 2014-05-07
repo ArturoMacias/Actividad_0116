@@ -50,8 +50,12 @@ public class Room
         map.put (direction, neighbor);
     }
 
-    public void addItem(String description, int weight){
-        items.add(new Item(description,weight));
+    public void addItem(String description, int weight, boolean taken){
+        items.add(new Item(description,weight,taken));
+    }
+    
+    public void addItem(Item newItem){
+        items.add(newItem);
     }
 
     public Room getExit(String direction){
@@ -76,6 +80,41 @@ public class Room
             description = "No items in this room";
         }
         return description;
+    }
+
+    /**
+     * Devuelve un item si su nombre coincide con el que le pasamos por la descripción
+     */
+    public Item getItem(String description){
+        Item item = null;
+        int index=0;
+        boolean found= false;
+        while(index<items.size() && !found){
+            Item itemDesc = items.get(index);
+            if (itemDesc.getItemName().equals(description)){
+                item= itemDesc;
+                found = true;
+            }else{
+                index++;
+            }     
+        }
+        return item;
+    }
+
+    /**
+     * Elimina un item de la habitación
+     */
+    public void removeItem(Item itemToRemove){
+        int index=0;
+        boolean found = false;
+        while (index<items.size() && !found){
+            if (items.get(index)==itemToRemove){
+                items.remove(itemToRemove);
+                found = true;
+            }else{
+                index ++;
+            }
+        }
     }
 
     /**

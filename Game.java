@@ -20,7 +20,7 @@ public class Game
 {
     private Parser parser;
     private Player player;
-    
+
     /**
      * Create the game and initialise its internal map.
      */
@@ -28,7 +28,7 @@ public class Game
     {
         player = new Player (createRooms());
         parser = new Parser();
-     }
+    }
 
     /**
      * Create all the rooms and link their exits together.
@@ -44,9 +44,11 @@ public class Game
         mobile = new Room("in the mobile section");
         video = new Room("in the video section");
         //add items 
-        outside.addItem("lamp", 2);
-        outside.addItem("chair",3);
-        mobile.addItem("mobile",1);
+        outside.addItem("lamp", 2, false);
+        outside.addItem("chair",3,true);
+        mobile.addItem("mobile",1,true);
+        mobile.addItem("table",5,false);
+        kitchen.addItem("spoon",1,true);
         // initialise room exits
         outside.setExit("south",corridor);
         corridor.setExit("north",outside);
@@ -76,7 +78,7 @@ public class Game
         // execute them until the game is over.
 
         boolean finished = false;
-        
+
         while (! finished) {
             Command command = parser.getCommand();
             finished = processCommand(command);
@@ -129,6 +131,12 @@ public class Game
             System.out.println("You have eaten now and you are not hungry any more");
         }else if(commandWord.equals("back")){
             player.goBack();
+        }else if(commandWord.equals("take")){
+            player.takeItem(command);
+        }else if (commandWord.equals("drop")){
+            player.dropItem(command);
+        }else if(commandWord.equals("items")){
+            player.showItems();
         }
 
         return wantToQuit;
@@ -167,7 +175,6 @@ public class Game
         parser.printCommandWords();
     }
 
-
     /** 
      * "Quit" was entered. Check the rest of the command to see
      * whether we really quit the game.
@@ -184,5 +191,5 @@ public class Game
         }
     }
 
-       }
+}
 
