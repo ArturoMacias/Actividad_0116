@@ -94,6 +94,32 @@ public class Player
 
     }
 
+    public void dropItem(Command command){
+        if(!command.hasSecondWord()) {
+            // if there is no second word, we don't know what to drop...
+            System.out.println("drop what?");
+            return;
+        }
+
+        String itemName = command.getSecondWord();
+    
+        int index = 0;
+        boolean found = false;
+        while (index<playerItems.size() && !found){
+            Item itemDesc = playerItems.get(index);
+            if (itemDesc.getItemName().equals(itemName)){
+                playerItems.remove(itemDesc);
+                currentRoom.addItem(itemDesc);
+                found = true;
+            }else{
+                index++;
+            }
+        }
+        if(found == false){
+            System.out.println("Hey, you don´t have a great " + itemName+ " with you");
+        }
+    }
+
     public void printLocationInfo(){
         System.out.println(currentRoom.getLongDescription());
     }

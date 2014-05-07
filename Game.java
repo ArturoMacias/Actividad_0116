@@ -133,6 +133,8 @@ public class Game
             player.goBack();
         }else if(commandWord.equals("take")){
             player.takeItem(command);
+        }else if (commandWord.equals("drop")){
+            player.dropItem(command);
         }
 
         return wantToQuit;

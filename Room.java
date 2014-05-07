@@ -53,6 +53,10 @@ public class Room
     public void addItem(String description, int weight, boolean taken){
         items.add(new Item(description,weight,taken));
     }
+    
+    public void addItem(Item newItem){
+        items.add(newItem);
+    }
 
     public Room getExit(String direction){
         Room nextExit;
