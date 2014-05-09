@@ -26,6 +26,10 @@ public class Player
     public void setCurrentRoom(Room newRoom){
         currentRoom=newRoom;
     }
+    
+    public void eat(){
+        System.out.println("You have eaten now and you are not hungry any more");
+    }
     /** 
      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.
@@ -149,6 +153,9 @@ public class Player
 
     /**
      * Devuelve el peso total de lo que lleva el jugador
+     * OJO!!!!!! ver que hago un if para comprobar si hay algún item en el ArrayList que lleva el jugador. Realmente 
+     * no haría falta. Si se pone el bucle for, y no hay nada en el ArrayList, pues directamente no haría nada, y el peso total
+     * sería cero
      */
     public int totalWeight(){
         int totalWeight = 0;

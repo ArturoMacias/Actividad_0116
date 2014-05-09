@@ -129,7 +129,7 @@ public class Game
             player.printLocationInfo();
         }
         else if(commandWord.equals("eat")){
-            System.out.println("You have eaten now and you are not hungry any more");
+            player.eat();
         }else if(commandWord.equals("back")){
             player.goBack();
         }else if(commandWord.equals("take")){
