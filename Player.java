@@ -18,13 +18,14 @@ public class Player
     /**
      * Constructor for objects of class Player
      */
-    public Player(Room currentRoom)
+    public Player()
     {
-        this.currentRoom = currentRoom;
         previousRooms = new Stack<>();
         playerItems = new ArrayList<>();
     }
-
+    public void setCurrentRoom(Room newRoom){
+        currentRoom=newRoom;
+    }
     /** 
      * Try to go in one direction. If there is an exit, enter
      * the new room, otherwise print an error message.

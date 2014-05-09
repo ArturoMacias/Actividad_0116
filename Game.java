@@ -26,14 +26,15 @@ public class Game
      */
     public Game() 
     {
-        player = new Player (createRooms());
+        player = new Player ();
         parser = new Parser();
+        createRooms();
     }
 
     /**
      * Create all the rooms and link their exits together.
      */
-    private Room createRooms()
+    private void createRooms()
     {
         Room outside, corridor, kitchen, mobile, video;
 
@@ -63,7 +64,7 @@ public class Game
         video.setExit("north",kitchen);
         video.setExit("east", mobile);
 
-        return outside;  // start game outside
+        player.setCurrentRoom(outside);
 
     }
 
