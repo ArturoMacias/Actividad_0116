@@ -13,7 +13,8 @@ public class Player
     private Stack<Room> previousRooms;
     private ArrayList<Item> playerItems;
     //peso máximo que puede llevar el jugador
-    public static final int MAX_WEIGHT = 4;
+    private int maxWeight;
+    private static final int MAX_WEIGHT_DEFAULT = 4;
 
     /**
      * Constructor for objects of class Player
@@ -22,6 +23,7 @@ public class Player
     {
         previousRooms = new Stack<>();
         playerItems = new ArrayList<>();
+        maxWeight = MAX_WEIGHT_DEFAULT;
     }
     public void setCurrentRoom(Room newRoom){
         currentRoom=newRoom;
@@ -90,7 +92,7 @@ public class Player
         }
         if (!item.getTaken()){
             System.out.println("This item can´t be taken");
-        }else if(item.getWeight() + totalWeight() >= MAX_WEIGHT){
+        }else if(item.getWeight() + totalWeight() >= maxWeight){
             System.out.println("You can´t take this item, it's too heavy");
         }else{
             //Añade al ArrayList el item que cogemos

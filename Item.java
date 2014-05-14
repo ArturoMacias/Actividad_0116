@@ -10,6 +10,7 @@ public class Item
     private int weight;
     //indica si el item puede ser llevado o no
     private boolean taken;
+    
 
     /**
      * Constructor for objects of class Item
