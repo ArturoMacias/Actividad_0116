@@ -116,30 +116,36 @@ public class Game
         }
 
         Option commandWord = command.getCommandWord();
-        if (commandWord == Option.HELP) {
+        switch(commandWord){
+            case HELP:
             printHelp();
-        }
-        else if (commandWord== Option.GO) {
+            break;
+            case GO:
             player.goRoom(command);
-        }
-        else if (commandWord == Option.QUIT) {
+            break;
+            case QUIT:
             wantToQuit = quit(command);
-        }
-        else if(commandWord == Option.LOOK){
+            break;
+            case LOOK:
             player.printLocationInfo();
-        }
-        else if(commandWord == Option.EAT){
+            break;
+            case EAT:
             player.eat();
-        }else if(commandWord == Option.BACK){
+            break;
+            case BACK:
             player.goBack();
-        }else if(commandWord == Option.TAKE){
+            break;
+            case TAKE:
             player.takeItem(command);
-        }else if (commandWord == Option.DROP){
+            break;
+            case DROP:
             player.dropItem(command);
-        }else if(commandWord == Option.ITEMS){
+            break;
+            case ITEMS:
             player.showItems();
+            break;
         }
-
+        
         return wantToQuit;
     }
 
