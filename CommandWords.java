@@ -30,7 +30,6 @@ public class CommandWords
         validCommands.put("take", Option.TAKE);
         validCommands.put("drop", Option.DROP);
         validCommands.put("items", Option.ITEMS);
-        validCommands.put("unknown", Option.UNKNOWN);
     }
 
     /**
@@ -64,9 +63,7 @@ public class CommandWords
         }else{
             option = Option.UNKNOWN;
         }
-        
         return option;
-        
     }
         
         
