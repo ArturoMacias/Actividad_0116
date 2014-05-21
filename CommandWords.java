@@ -1,4 +1,3 @@
-import java.util.HashMap;
 /**
  * This class is part of the "World of Zuul" application. 
  * "World of Zuul" is a very simple, text based adventure game.  
@@ -6,31 +5,20 @@ import java.util.HashMap;
  * This class holds an enumeration of all command words known to the game.
  * It is used to recognise commands as they are typed in.
  *
- * @author  Michael KÃ¶lling and David J. Barnes
+ * @author  Michael KÃ¶lling and David J. Barnes+
  * @version 2011.07.31
  */
 
 public class CommandWords
 {
-    // a constant array that holds all valid command words
-    private HashMap<String,Option> validCommands;
+    private Option[] comandos;//Declaro el Array tradicional
 
     /**
      * Constructor - initialise the command words.
      */
     public CommandWords()
     {
-        validCommands = new HashMap<>();
-        validCommands.put("ir", Option.GO);
-        validCommands.put("salir", Option.QUIT);
-        validCommands.put("ayuda", Option.HELP);
-        validCommands.put("mirar", Option.LOOK);
-        validCommands.put("comer", Option.EAT);
-        validCommands.put("volver", Option.BACK);
-        validCommands.put("coger", Option.TAKE);
-        validCommands.put("dejar", Option.DROP);
-        validCommands.put("objetos", Option.ITEMS);
-        //ver que no ponemos en el hashmap el UNKNOWN, realmente no es un comando
+        comandos = Option.values();//Le asigno lo que devuelve ese método, que es un Array de Option
     }
 
     /**
@@ -40,15 +28,51 @@ public class CommandWords
      */
     public boolean isCommand(String aString)
     {   
-        //si encuentra un valor para esa key, será distinto de null y devolverá true
-        return validCommands.get(aString) != null;
+        //Se podría haber hecho con un while
+        boolean found=false;
+        for(int index=0; index<comandos.length && !found;index++){
+            Option key =comandos[index];
+            if (key != Option.UNKNOWN){//Con esto comprobamos que no es UNKNOWN, ya que si por casualidad le pasamos
+                //una cadena vacía como String, nos daría como comando válido, y no lo es. De ahí la comprobación previa
+                if (key.getOptionString().equals(aString)){
+                   found = true;
+                }
+            }
+        }
+        return found;
     }
+    /** OPCIÓN CON WHILE
+     *  public boolean isCommand(String aString)
+    {	
+    	boolean command = false;
+		int index= 0; 
+		while (index<commands.length && !command){
+			Option key = commands[index];
+			if (key != Option.UNKNOWN){
+				if (key.getOptionString().equals(aString)){
+					command= true;
+				}
+				
+			}
+			index++;
+		}
+
+    	return command;
+
+    }
+     */
 
     /**
      * Print all valid commands to System.out
      */
     public void showAll(){
-        System.out.println(validCommands.keySet());
+        String commands = "";
+        for (Option option : comandos){
+            if (option != Option.UNKNOWN){//Esta comparación evita que se imprima UNKNOWN
+                commands += " " + option.getOptionString(); 
+            }
+        }
+        System.out.println(commands);
     }
 
     /**
@@ -58,14 +82,40 @@ public class CommandWords
      *         if it is not a valid command word.
      */
     public Option getCommandWord(String commandWord){
-        Option option;
-        if(isCommand(commandWord)){
-            option = validCommands.get(commandWord);
-        }else{
+        boolean found = false;
+        Option option = null;//Se podría iniciar directamente a UNKNOWN, y quitar el if de abajo, ya que si no lo encuentra
+        //de todas todas va a devovler UNKNOWN
+        for (int index=0;index<comandos.length && !found;index++){
+            if(comandos[index].getOptionString().equals(commandWord)){
+                option = comandos[index];
+                found = true;
+            }
+        }
+        if (!found){
             option = Option.UNKNOWN;
         }
         return option;
     }
-        
-        
+    /**OPCION CON WHILE
+     * public Option getCommandWord(String commandWord)
+	{
+	  	Option comando= Option.UNKNOWN;
+	  	boolean encontrado = false;
+	  	int index=0;
+                while(index<commands.length && !encontrado) {
+                	Option key = commands[index];
+					if (key != Option.UNKNOWN){
+						if (key.getOptionString().equals(commandWord)){
+							encontrado = true;
+							comando = key;
+						}
+					}
+				    index++;
+                }	  
+               	return comando;
+	}    
+    
+     */
+
 }
+
