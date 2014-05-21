@@ -7,19 +7,35 @@
  */
 public enum Option
 {   
-    
-    //Hay que poner antes la lista de todos los comandos, si no, no compila. Ya después atributo y constructor
-    GO("ir"),QUIT("salir"), HELP("ayuda"), LOOK("mirar"), EAT("comer"), BACK("volver"), TAKE("coger"),  DROP("dejar"), 
 
-    ITEMS("objetos"), UNKNOWN("Desconocido");
-    
-    private String spanishCommand;
+    //Hay que poner antes la lista de todos los valores, si no, no compila. Ya después atributo y constructor
+    GO("ir"),
 
-    Option (String spanishCommand){
-        this.spanishCommand = spanishCommand;
+    QUIT("salir"), 
+
+    HELP("ayuda"), 
+
+    LOOK("mirar"), 
+
+    EAT("comer"), 
+
+    BACK("volver"), 
+
+    TAKE("coger"),  
+
+    DROP("dejar"), 
+
+    ITEMS("objetos"), 
+
+    UNKNOWN("");
+
+    private String optionString;
+
+    Option (String optionString){
+        this.optionString = optionString;
     }
-    
-    public String getSpanishCommand(){
-        return spanishCommand;
+
+    public String getOptionString(){
+        return optionString;
     }
 }
