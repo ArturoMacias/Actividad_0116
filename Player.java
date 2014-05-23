@@ -14,8 +14,11 @@ public class Player
     private ArrayList<Item> playerItems;
     //peso máximo que puede llevar el jugador
     private int maxWeight;
+    //nivel de vida
+    private int lifeLevel;
     private static final int MAX_WEIGHT_DEFAULT = 4;
-
+    private static final int LIFE_DEFAULT = 10;
+    
     /**
      * Constructor for objects of class Player
      */
@@ -24,6 +27,7 @@ public class Player
         previousRooms = new Stack<>();
         playerItems = new ArrayList<>();
         maxWeight = MAX_WEIGHT_DEFAULT;
+        lifeLevel = LIFE_DEFAULT;
     }
     public void setCurrentRoom(Room newRoom){
         currentRoom=newRoom;
@@ -72,15 +76,18 @@ public class Player
     }
     
     /**
-     * Take a Item from the current room
+     * Take a Item from the current room,
+     * Return 'true' if the game finishes
      */
-    public void takeItem(Command command){
+    public boolean takeItem(Command command){
+            
         if(!command.hasSecondWord()) {
             // if there is no second word, we don't know what to take...
             System.out.println("take what?");
-            return;
+           return false;
         }
-
+        //indica si el juego termina. Fijarse que ahora takeItem devuelve boolean   
+        boolean finished = false;
         String itemName = command.getSecondWord();
         //En un principio pensé en recorrer desde aquí el ArrayList de la clase Room, pero era privado, por lo
         //que se me ocurrió hacerle un get para devolverlo.OJOOO, No sería correcto porque para eso es privado.
@@ -88,22 +95,39 @@ public class Player
         Item item = currentRoom.getItem(itemName);
         if(item == null){
             System.out.println("The item " + itemName +" doesn´t exist");
-            return;
+            return false;
         }
         if (!item.getTaken()){
             System.out.println("This item can´t be taken");
         }else if(item.getWeight() + totalWeight() >= maxWeight){
             System.out.println("You can´t take this item, it's too heavy");
-        }else{
-            //Añade al ArrayList el item que cogemos
+        }
+        else if(item.getMagic()){
+            System.out.println("Hey!! you have found the magic item, you have won!!");
+            finished = true;
+        }
+        else if((lifeLevel + item.getAffection()<=0)){
+            System.out.println("You lost your life..-Try Again");
+            finished = true;
+        }
+        else{
+            lifeLevel += item.getAffection();
+            if (item.getHarmful()){
+                System.out.println("Hey, take care about what you touch, you have taken a dangerous "+ item.getItemName());
+            }else{
+                System.out.println("Umm, you are a lucky person," +item.getItemName() + 
+                " has increased your life in "+ item.getAffection()+" points");
+            }
+            System.out.println("Now you have a "+lifeLevel +" of life");
+             //Añade al ArrayList el item que cogemos
             playerItems.add(item);
             //Llama al método creado en Room para eliminar
             currentRoom.removeItem(item);
-            System.out.println("Hey, now you have a marvellous " + item.getItemName() +" with you");            
+            System.out.println("Hey, now you have a marvellous " + item.getItemName() +" with you"); 
         }
-
+        return finished;
     }
-
+    
     /**
      * Leave an item in the currentRoom
      */
@@ -167,5 +191,9 @@ public class Player
             }
         }
         return totalWeight;
-    }   
+    }  
+    
+    public int getLifeLevel(){
+        return lifeLevel;
+    }
 }
