@@ -14,8 +14,11 @@ public class Player
     private ArrayList<Item> playerItems;
     //peso máximo que puede llevar el jugador
     private int maxWeight;
+    //nivel de vida
+    private int lifeLevel;
     private static final int MAX_WEIGHT_DEFAULT = 4;
-
+    private static final int LIFE_DEFAULT = 5;
+    
     /**
      * Constructor for objects of class Player
      */
@@ -24,6 +27,7 @@ public class Player
         previousRooms = new Stack<>();
         playerItems = new ArrayList<>();
         maxWeight = MAX_WEIGHT_DEFAULT;
+        lifeLevel = LIFE_DEFAULT;
     }
     public void setCurrentRoom(Room newRoom){
         currentRoom=newRoom;
@@ -167,5 +171,9 @@ public class Player
             }
         }
         return totalWeight;
-    }   
+    }  
+    
+    public int getLifeLevel(){
+        return lifeLevel();
+    }
 }
