@@ -45,11 +45,13 @@ public class Game
         mobile = new Room("in the mobile section");
         video = new Room("in the video section");
         //add items 
-        outside.addItem("lamp", 2, false);
-        outside.addItem("chair",3,true);
-        mobile.addItem("mobile",1,true);
-        mobile.addItem("table",5,false);
-        kitchen.addItem("spoon",1,true);
+        outside.addItem("lamp", 2, false,false,false);
+        outside.addItem("chair",3,true,true,false);
+        corridor.addItem("cigarrette",1,true,true,false);
+        corridor.addItem("cookie",1,true,false,false);
+        mobile.addItem("mobile",1,true,false,true);
+        mobile.addItem("table",5,false,false,false);
+        kitchen.addItem("knife",1,true,true,false);
         // initialise room exits
         outside.setExit("south",corridor);
         corridor.setExit("north",outside);
@@ -136,7 +138,7 @@ public class Game
             player.goBack();
             break;
             case TAKE:
-            player.takeItem(command);
+            wantToQuit=player.takeItem(command);
             break;
             case DROP:
             player.dropItem(command);

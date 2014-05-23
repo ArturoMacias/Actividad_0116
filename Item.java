@@ -12,21 +12,24 @@ public class Item
     private boolean taken;
     //indica si el item es dañino o no
     private boolean harmful;
+    //indica si es el elemento que permite ganar la partida
+    private boolean magic;
     //indica el grado en el que el elemento es dañino o beneficioso
-    private int affection;
+     private int affection;
     
 
     /**
      * Constructor for objects of class Item
      */
-    public Item(String itemName, int weight, boolean taken, boolean harmful)
+    public Item(String itemName, int weight, boolean taken, boolean harmful,boolean magic)
     {
         this.itemName = itemName;
         this.weight = weight;
         this.taken = taken;
         this.harmful=harmful;
+        this.magic= magic;
         if(harmful){
-            affection = 2;
+            affection = -2;
         }else{
             affection = 1;
         }
@@ -54,11 +57,24 @@ public class Item
     }
     
     /**
-     * Returns 'true¡ if the item is harmful
+     * Returns 'true' if the item is harmful
      */
-    public boolean getHarmmful(){
+    public boolean getHarmful(){
         return harmful;
     }
-     
+    
+    /**
+     * Returns 'true' if the item is the magic item
+     */
+     public boolean getMagic(){
+        return magic;
+        }
+    /**
+     * Returns the item's affection
+     */
+    public int getAffection(){
+        return affection;
+    }
+    
 }   
 
